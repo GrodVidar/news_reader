@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}News Reader{% endblock %}
+
+{% block content %}
+    <div id="saved-objects">
+        {% include "news/partial/saved_articles.html" %}
+    </div>
+    <div id="accordion" class="accordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAI" aria-expanded="true" aria-controls="collapseAI">
+                    News about AI
+                </button>
+            </h2>
+            <div id="collapseAI" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <div class="row row-cols-1 row-cols-md-2">
+                        {% for article in api_data.ai %}
+                            <div class="col mb-4">
+                                <div class="card">
+                                    <img class="card-img-top" src="{{ article.urlToImage }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ article.title }}</h5>
+                                        <p class="card-text">{{ article.description }}</p>
+                                        <a href="{{ article.url }}" class="btn btn-primary" target="_blank">Read more</a>
+                                        <form hx-post="{% url 'news:save_article' %}" hx-trigger="click" hx-target="#saved-objects" style="display: inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="source.source_id" value="{{ article.source.source_id }}">
+                                            <input type="hidden" name="source.name" value="{{ article.source.name }}">
+                                            <input type="hidden" name="author" value="{{ article.author }}">
+                                            <input type="hidden" name="title" value="{{ article.title }}">
+                                            <input type="hidden" name="description" value="{{ article.description }}">
+                                            <input type="hidden" name="url" value="{{ article.url }}">
+                                            <input type="hidden" name="urlToImage" value="{{ article.urlToImage }}">
+                                            <input type="hidden" name="publishedAt" value="{{ article.publishedAt }}">
+                                            <input type="hidden" name="content" value="{{ article.content }}">
+                                            <input type="hidden" name="category" value="{{ article.category }}">
+                                            <button type="submit" class="btn btn-success">Save article</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseApple" aria-expanded="true" aria-controls="collapseApple">
+                    News about Apple
+                </button>
+            </h2>
+            <div id="collapseApple" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <div class="row row-cols-1 row-cols-md-2">
+                        {% for article in api_data.apple %}
+                            <div class="col mb-4">
+                                <div class="card">
+                                    <img class="card-img-top" src="{{ article.urlToImage }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ article.title }}</h5>
+                                        <p class="card-text">{{ article.description }}</p>
+                                        <a href="{{ article.url }}" class="btn btn-primary" target="_blank">Read more</a>
+                                        <form hx-post="{% url 'news:save_article' %}" hx-trigger="click" hx-target="#saved-objects"  style="display: inline;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="source.source_id" value="{{ article.source.source_id }}">
+                                                <input type="hidden" name="source.name" value="{{ article.source.name }}">
+                                                <input type="hidden" name="author" value="{{ article.author }}">
+                                                <input type="hidden" name="title" value="{{ article.title }}">
+                                                <input type="hidden" name="description" value="{{ article.description }}">
+                                                <input type="hidden" name="url" value="{{ article.url }}">
+                                                <input type="hidden" name="urlToImage" value="{{ article.urlToImage }}">
+                                                <input type="hidden" name="publishedAt" value="{{ article.publishedAt }}">
+                                                <input type="hidden" name="content" value="{{ article.content }}">
+                                                <input type="hidden" name="category" value="{{ article.category }}">
+                                                <button type="submit" class="btn btn-success">Save article</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSweden" aria-expanded="true" aria-controls="collapseSweden">
+                    News about Sweden
+                </button>
+            </h2>
+            <div id="collapseSweden" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <div class="row row-cols-1 row-cols-md-2">
+                        {% for article in api_data.sweden %}
+                            <div class="col mb-4">
+                                <div class="card">
+                                    <img class="card-img-top" src="{{ article.urlToImage }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ article.title }}</h5>
+                                        <p class="card-text">{{ article.description }}</p>
+                                        <a href="{{ article.url }}" class="btn btn-primary" target="_blank">Read more</a>
+                                        <form hx-post="{% url 'news:save_article' %}" hx-trigger="click" hx-target="#saved-objects"  style="display: inline;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="source.source_id" value="{{ article.source.source_id }}">
+                                                <input type="hidden" name="source.name" value="{{ article.source.name }}">
+                                                <input type="hidden" name="author" value="{{ article.author }}">
+                                                <input type="hidden" name="title" value="{{ article.title }}">
+                                                <input type="hidden" name="description" value="{{ article.description }}">
+                                                <input type="hidden" name="url" value="{{ article.url }}">
+                                                <input type="hidden" name="urlToImage" value="{{ article.urlToImage }}">
+                                                <input type="hidden" name="publishedAt" value="{{ article.publishedAt }}">
+                                                <input type="hidden" name="content" value="{{ article.content }}">
+                                                <input type="hidden" name="category" value="{{ article.category }}">
+                                                <button type="submit" class="btn btn-success">Save article</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

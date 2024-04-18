@@ -1,0 +1,34 @@
+{% if articles %}
+    <h3>Saved articles</h3>
+    <div id="carouselSaved" class="carousel slide mb-5">
+        <div class="carousel-inner">
+            {% for article in articles %}
+            {% if forloop.counter == 1 %}
+                <div class="carousel-item active">
+            {% else %}
+                <div class="carousel-item">
+            {% endif %}
+                <img src="{{ article.urlToImage }}" class="d-block w-100">
+                <div class="carousel-caption d-none d-md-block bg-light bg-opacity-75">
+                    <h5>{{ article.title }}</h5>
+                    <p>{{ article.description }}</p>
+                    <a href="{{ article.url }}" class="btn btn-primary" target="_blank">Read more</a>
+                    <form hx-post="{% url 'news:remove_article' %}" hx-trigger="click" hx-target="#saved-objects" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="article_id" value="{{ article.id }}">
+                        <button type="submit" class="btn btn-danger">Delete from saved</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselSaved" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselSaved" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+{% endif %}
